@@ -10,6 +10,7 @@ import com.mnithelp.projecthub.entity.Job;
 import com.mnithelp.projecthub.entity.Link;
 import com.mnithelp.projecthub.entity.Project;
 import com.mnithelp.projecthub.entity.Stage;
+import com.mnithelp.projecthub.entity.Tag;
 import com.mnithelp.projecthub.entity.User;
 
 @Component
@@ -24,6 +25,7 @@ public class CustomRestConfiguration implements RepositoryRestConfigurer {
 		config.exposeIdsFor(User.class);
 		config.exposeIdsFor(Job.class);
 		config.exposeIdsFor(Link.class);
+		config.exposeIdsFor(Tag.class);
 		config.exposeIdsFor(Project.class);
 	}
 

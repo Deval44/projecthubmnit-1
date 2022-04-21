@@ -23,11 +23,14 @@ public class Job {
 	@Column(name = "id")
 	private int id;
 	
+	@Column(name = "title")
+	private String title;
+	
 	@Column(name = "description")
 	private String description;
 	
 	@Column(name ="created_at")
-	private java.time.LocalDate createdAt;
+	private java.time.LocalDate createdAt = java.time.LocalDate.now();
 	
 	@Column(name = "status")
 	private int status;
@@ -40,9 +43,9 @@ public class Job {
 	public Job() {
 	}
 
-	public Job(String description, LocalDate createdAt, int status) {
+	public Job(String title, String description, int status) {
+		this.title = title;
 		this.description = description;
-		this.createdAt = createdAt;
 		this.status = status;
 	}
 
@@ -84,6 +87,15 @@ public class Job {
 
 	public void setProject(Project project) {
 		this.project = project;
+	}
+	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Override

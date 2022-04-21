@@ -1,5 +1,7 @@
 package com.mnithelp.projecthub.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +32,9 @@ public class Stage {
 	@Column(name = "status")
 	private int status;
 	
+	@Column(name = "completed_at")
+	private LocalDate completedAt;
+	
 	//@JsonIgnore
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "project_id")
@@ -42,6 +47,7 @@ public class Stage {
 		this.name = name;
 		this.stageNum = stageNum;
 		this.status = status;
+		this.completedAt = LocalDate.parse("0000-00-00");
 	}
 
 	public int getId() {
@@ -74,6 +80,13 @@ public class Stage {
 
 	public void setStatus(int status) {
 		this.status = status;
+		
+		//updating the date completed acc to the status
+		if(this.status == 1) {
+			setCompletedAt(LocalDate.now());
+		}
+		else
+			setCompletedAt(LocalDate.parse("0001-01-01"));
 	}
 
 	public Project getProject() {
@@ -82,6 +95,18 @@ public class Stage {
 
 	public void setProject(Project project) {
 		this.project = project;
+	}
+
+	public LocalDate getCompletedAt() {
+		return completedAt;
+	}
+
+	public void setCompletedAt(LocalDate completedAt) {
+		this.completedAt = completedAt;
+	}
+
+	public void setStageNum(Integer stageNum) {
+		this.stageNum = stageNum;
 	}
 
 	@Override

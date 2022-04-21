@@ -1,4 +1,4 @@
-package com.mnithelp.projecthub.projection;
+package com.mnithelp.projecthub.entity;
 
 import java.util.List;
 import java.util.Set;
