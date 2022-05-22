@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mnithelp.projecthub.security.Provider;
 
 @Entity
 @Table(name = "user")
@@ -27,14 +30,14 @@ public class User {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "first_name")
-	private String firstName;
-	
-	@Column(name = "last_name")
-	private String lastName;
+	@Column(name = "name")
+	private String name;
 	
 	@Column(name = "email")
 	private String email;
+	
+	@Enumerated(EnumType.STRING)
+	private Provider provider;
 	
 	@OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<Idea> ideas;
@@ -51,10 +54,9 @@ public class User {
 
 	public User() {
 	}
-
-	public User(String firstName, String lastName, String email) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+	
+	public User(String name, String email) {
+		this.name = name;
 		this.email = email;
 	}
 
@@ -66,20 +68,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -88,6 +82,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Provider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(Provider provider) {
+		this.provider = provider;
 	}
 
 	public List<Idea> getIdeas() {
@@ -122,9 +124,11 @@ public class User {
 		this.projects = projects;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "User [name=" + name + ", email=" + email + "]";
 	}
 	
 	

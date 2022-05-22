@@ -3,6 +3,7 @@ package com.mnithelp.projecthub.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -96,5 +97,15 @@ public class ProjectRestController {
 		
 		project.removeMember(member);
 		return projectRepository.save(project);
+	}
+	
+	//sending logged in user as a response to login
+	@CrossOrigin("http://localhost:3000")
+	@GetMapping("/users/{email}")
+	User getByEmail(
+			@PathVariable String email
+			) {
+		User user = userRepository.getUserByEmail(email);
+		return user;
 	}
 }
