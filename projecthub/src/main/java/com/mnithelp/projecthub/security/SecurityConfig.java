@@ -38,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			 
 			            userService.processOAuthPostLogin(oauthUser.getEmail(),oauthUser.getName());
 			 
-			            response.sendRedirect("/custom/api/projects/users/" + oauthUser.getEmail());
+			            response.sendRedirect("http://localhost:3000");
+			            //response.sendRedirect("/custom/api/projects/users/" + oauthUser.getEmail());
 			        }
 			    });
 	}

@@ -1,6 +1,8 @@
 package com.mnithelp.projecthub.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import com.mnithelp.projecthub.entity.User;
 import com.mnithelp.projecthub.repository.ProjectRepository;
 import com.mnithelp.projecthub.repository.TagRepository;
 import com.mnithelp.projecthub.repository.UserRepository;
+import com.mnithelp.projecthub.security.CustomOAuth2User;
 
 //@CrossOrigin("http://localhost:3000")
 @RestController
@@ -106,6 +109,18 @@ public class ProjectRestController {
 			@PathVariable String email
 			) {
 		User user = userRepository.getUserByEmail(email);
+		return user;
+	}
+	
+	//sending looged in user info directly - better method
+	@CrossOrigin("http://localhost:3000")
+	@GetMapping("/currUser")
+	User getCurrentUser() {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
+		
+		User user = userRepository.getUserByEmail(oauthUser.getEmail());
 		return user;
 	}
 }
